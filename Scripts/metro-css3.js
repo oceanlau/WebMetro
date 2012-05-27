@@ -1,54 +1,22 @@
 //Forked from olton / Metro-UI-CSS
 //original: https://github.com/olton/Metro-UI-CSS/blob/master/demo/js/metro.js
 
-//use css3 effect to animate. But it proves to be not responsive enough. So I rolled back to original metro.js
-
 ;(function($){
     $.fn.metro = function(){
 
-        var el = {
-                body:'.metro-body',
-                section:'.metro-section',
-                content:'.metro-content',
-                next:'.metro-next',
-                back:'.metro-back'
-            },
-            currentSectionIndex = 0
-
-        /*
-            var tilesSections = $(el.section)//$(".metro-section");
-            var currentSection = tilesSections[currentSectionIndex];
-            var maxSectionIndex = tilesSections.length - 1;
-            var scrollTarget = $(el.next)//$(".metro-next")[currentSectionIndex];
-         */
-
-        /*
-        $(el.body).mousewheel(function(event, delta, deltaX, deltaY){
-            var scrollNext = delta < 0;
-            return false;
-        });
-         */
-
-
-        $(el.next).bind("click", function(){
-            var target = $(this);
-            if ($(this).hasClass(el.back)) {
-                currentSectionIndex -=1;
-                if (currentSectionIndex == 0) {
-                    target = target.parent(el.section);
-                } else {
-                    target = $($($(this).attr("data-prior")).parent().children(el.section)[0]).children(el.next);
-                }
-                $(this).removeClass(el.back);
-            } else {
-                currentSectionIndex +=1;
-                var target = $(this);
-                $(this).addClass(el.back);
+        var _el = {
+                body:'metro-body',
+                section:'metro-section',
+                content:'metro-content'
             }
-        })
+
+
+        $('.'+_el.body).mousewheel(function(event, delta, deltaX, deltaY){
+            
+        });
 
         // Tiles click&hover effects
-        var tiles = $(el.content);
+        var tiles = $('.'+_el.content);
         $.each(tiles, function(i, e){
             var el = $(this);
             var duration = 100;
@@ -104,12 +72,12 @@
                 if( metro.orizorvert > 0 && $.browser.webkit){
                     var anim = 'press'+ metro.ang + (metro.orizorvert==1 ? 'Y':'X');
                     el
-                        .attr('class', 'metro-content ' + anim)
+                        .attr('class', _el.content+ ' ' + anim)
                         .delay(duration)
                 } else if( metro.orizorvert==0 || !$.browser.webkit ){
                     var anim = 'press';
                     el
-                        .attr('class', 'metro-content ' + anim)
+                        .attr('class', _el.content+ ' ' + anim)
                         .delay(duration);
                 }
             }).mouseup(function(e){
@@ -119,12 +87,12 @@
                     if( a.orizorvert > 0 && $.browser.webkit){
                         var anim = 'pressed'+ a.ang + (a.orizorvert==1 ? 'Y':'X');
                         el
-                            .attr('class', 'metro-content ' + anim)
+                            .attr('class', _el.content+ ' ' + anim)
                             .delay(duration);
                     }else if( a.orizorvert==0 || !$.browser.webkit){
                         var anim = 'pressed';
                         el
-                          .attr('class', 'metro-content ' + anim)
+                          .attr('class', _el.content+ ' ' + anim)
                           .delay(duration);
                     }
                     el.data('metro',{

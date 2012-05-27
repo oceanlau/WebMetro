@@ -5,10 +5,12 @@
 @import "metro-variables.less";
 @import "custom-variables.less";
 @import "mixins.less";
+@import "metro-wp-css3.less";
 
 
 
 .metro{
+    width: 200%;//wide enough
     height: 100%;
     background: @bg;
     .background-size(cover);
@@ -17,7 +19,6 @@
         position: relative;
         height: @size-header-h;
         .metro-h1{
-            width: 200%;//wide enough
             position: absolute;
             bottom: 0;
             font: @font-header;
@@ -29,6 +30,8 @@
         .metro-section{
             float: left;
             height: 100%;
+            padding-right: 80px;
+
             .metro-h2{
                 height: @size-h2-h;
                 padding-left: 10px;//minor adjustment

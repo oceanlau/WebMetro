@@ -1,0 +1,40 @@
+// metro-wp-css3.less
+// Windows Phone Style Metro - less needed for css3 metro
+
+.metro-content{
+    -webkit-transform: rotateX(0) rotateY(0) scale(1);
+    -webkit-transition: -webkit-transform 0.2s;
+
+    &.press{
+        -webkit-transform: rotateX(0) rotateY(0) scale(0.9);
+    }
+    &.pressed{}
+    &.pressPosX{
+        -webkit-transform-origin: 0% 100%;
+        -webkit-transform: rotateX(10deg) rotateY(0) scale(1);
+    }
+    &.pressedPosX{
+        -webkit-transform-origin: 0% 100%;
+    }
+    &.pressNegX{
+        -webkit-transform-origin: 0% 0%;
+        -webkit-transform: rotateX(-18deg) rotateY(0) scale(1);
+    }
+    &.pressedNegX{
+        -webkit-transform-origin: 0% 0%;
+    }
+    &.pressPosY{
+        -webkit-transform-origin: 0% 0%;
+        -webkit-transform: rotateX(0) rotateY(18deg) scale(1);
+    }
+    &.pressedPosY{
+        -webkit-transform-origin: 0% 0%;
+    }
+    &.pressNegY{
+        -webkit-transform-origin: 100% 0%;
+        -webkit-transform: rotateX(0) rotateY(-10deg) scale(1);
+    }
+    &.pressedNegY{
+        -webkit-transform-origin: 100% 0%;
+    }
+}

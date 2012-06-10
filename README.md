@@ -74,13 +74,16 @@ else if `data-dir` === "left" || `data-dir` === "right"
 ###Effect: Tag###
 
 **Setting Attr:**
+
 - `data-trigger`: "auto", "hover"
 - `data-dir`
 
 **Struct:**
+
 `div.metro-content.tag > div.sign`
 
 **Note:**
+
 - Let's say you set `data-dir` to "top", you need to use CSS to manually set your `div.sign` off the top of your `div.tag`. Read the CSS source.
 
 Planned

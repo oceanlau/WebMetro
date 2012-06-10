@@ -1,9 +1,27 @@
 // metro-wp-css3.less
 // Windows Phone Style Metro - less needed for css3 metro
 
+//Interaction Turn Effect
+.metro-wrapper{
+    -webkit-transition: -webkit-transform 1s;
+    -webkit-transform: rotateY(0);
+    &.turn{
+        -webkit-transform: rotateY(-90deg);
+        -webkit-backface-visibility:hidden;
+        backface-visibility:hidden;
+        .metro-content{
+            -webkit-backface-visibility:hidden;
+            backface-visibility:hidden;
+        }
+    }
+}
 .metro-content{
+    //-webkit-transform-style: preserve-3d;// not working as I imagined.
+
+    //Interaction Press Effect
+
     -webkit-transform: rotateX(0) rotateY(0) scale(1);
-    -webkit-transition: -webkit-transform 0.2s;
+    -webkit-transition: -webkit-transform 0.1s;
 
     &.press{
         -webkit-transform: rotateX(0) rotateY(0) scale(0.9);
@@ -37,4 +55,101 @@
     &.pressedNegY{
         -webkit-transform-origin: 100% 0%;
     }
+
+    //Presentation Effects
+
+    //Backface Effect
+    &.backface, .backface{
+        -webkit-perspective: 1000;
+        background: transparent !important;//override .metro-content's global bgColor
+        overflow: visible !important; // override .metro-content's global overflow:hidden setting
+
+        .flip-x{
+            -webkit-transform-origin: 10% 50%;
+            -webkit-transform: rotateX(180deg);
+        }
+        .flip-y{
+            -webkit-transform-origin: 50% 50%;
+            -webkit-transform: rotateY(180deg);
+        }
+
+        .card{
+            .size(100%, 100%);
+            position: relative;
+            -webkit-transition: -webkit-transform 0.6s;
+            .face{
+                .size(100%, 100%);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                position: absolute;
+                background: @tilebg;
+            }
+            .back{}
+        }
+
+    }
+    //Extend Effect
+    &.extend{
+       .extender{
+            .square(100%);
+            -webkit-transition: margin 0.2s;
+       }
+       .extendee{
+            width:100%;
+            background: @somecolor;
+            height: 50px;
+       }
+    }
+    //Shatter Effect
+    &.shatter{
+        background: transparent !important;//override .metro-content's global bgColor
+        overflow: visible !important; // override .metro-content's global overflow:hidden setting
+        .fragment{
+            float:left;
+        }
+    }
+    //Tag Effect
+    &.tag{
+        .sign{
+            position: absolute;
+            -webkit-transition-property: top, right, bottom, left;
+            -webkit-transition-duration: 0.2s;
+        }
+    }
+
+}
+
+//temp class
+.extend{
+    .wrap-left{
+        height: 100%;
+        width: 220px;
+        .extender{
+            width: 170px;
+            float: left;
+        }
+        .extendee{
+            height: 100%;
+            width: 50px;
+            float: left;
+            background:green;
+        }
+    }
+}
+
+.back{
+    background: black !important;
+}
+
+.sign{
+    position: absolute;
+    top: -40px;
+    width: 100%;
+    height:40px;
+    background: orange;
+}
+
+.fragment{
+    .square(50%);
+    background: brown;
 }

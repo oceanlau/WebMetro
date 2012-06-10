@@ -12,7 +12,7 @@
 
         // mousewheel to scroll
         //--------------------------------------------------------------------------------------------------
-        $('.'+_el.body).mousewheel(function(event, delta, deltaX, deltaY){
+        $('.'+_el.top).mousewheel(function(event, delta, deltaX, deltaY){
             var next = _page.scrollLeft - delta*40;
             next = (next < 0)?0:next;
             window.scrollTo(next, 0);
@@ -71,7 +71,7 @@
                 _p.shatter(el);
             } else if(el.hasClass('tag')){
                 presentation.mode = 'tag';
-                presentation.dir = el.attr('data-dir')||'top';
+                presentation.dir = el.attr('data-dir')||'bottom';
                 el.data('presentation', presentation);
                 _p.tag(el);
             }

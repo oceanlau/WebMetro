@@ -10,7 +10,7 @@
 
 
 .metro{
-    width: 200%;//wide enough
+    width: 600%;//wide enough
     height: 100%;
     background: @bg;
     .background-size(cover);
@@ -21,6 +21,7 @@
             position: relative;
             height: @size-header-h;
             .metro-h1{
+                //width: 300%;//wide enough
                 position: absolute;
                 bottom: 0;
                 font: @font-header;
@@ -77,6 +78,8 @@
                             .square(100%);
                             margin: @size-tile-gap 0 0 @size-tile-gap;
                             background: @tilebg;
+                            .background-size(cover);
+                            background-position: center;
                             cursor: pointer;
                             overflow: hidden;
                             //.transition(0.2s linear);
@@ -86,4 +89,18 @@
             }
         }
    }
+}
+
+.metro-content{
+    .title{
+        position: absolute;
+        bottom: @size-tile-gap;
+        left: 0;
+        .size(28px, 100%);
+        background: @titlebg;
+        font: @font-normaltext;
+        line-height: 28px;
+        text-indent: 0.4em;
+        color: @color-title;
+    }
 }

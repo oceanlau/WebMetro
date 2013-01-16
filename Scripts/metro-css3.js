@@ -1,3 +1,7 @@
+/*
+ *  oceanlau @bingyan.net
+ *  https://github.com/oceanlau/WebMetro
+ */
 ;(function($, window, undefined){
     $.fn.metro = function(options){
 
@@ -12,17 +16,20 @@
 
         // mousewheel to scroll
         //--------------------------------------------------------------------------------------------------
-        $('.'+_el.top).mousewheel(function(event, delta, deltaX, deltaY){
-            var next = _page.scrollLeft - delta*40;
-            next = (next < 0)?0:next;
-            window.scrollTo(next, 0);
-            $('.'+_el.h1).css({ 'text-indent' : document.body.scrollLeft/1.4 });//adding this in mousewheel event handler while it is already in scroll's makes it more smooth-like.
-            //$('.'+_el.h1).animate({textIndent:document.body.scrollLeft/1.4}, {duration:50} );//animation only makes it lag, not smoothy.
-        });
-        $(window).scroll(function(){
-            $('.'+_el.h1).css({ 'text-indent' : document.body.scrollLeft/1.4 });
-            _page.scrollLeft = document.body.scrollLeft;
-        })
+        if($.browser.webkit){//issue! All browser support required
+            $('.'+_el.top).mousewheel(function(event, delta, deltaX, deltaY){
+            //$('body').mousewheel(function(event, delta, deltaX, deltaY){
+                var next = _page.scrollLeft - delta*40;
+                next = (next < 0)?0:next;
+                window.scrollTo(next, 0);
+                $('.'+_el.h1).css({ 'text-indent' : document.body.scrollLeft/1.4 });//adding this in mousewheel event handler while it is already in scroll's makes it more smooth-like.
+                //$('.'+_el.h1).animate({textIndent:document.body.scrollLeft/1.4}, {duration:50} );//animation only makes it lag, not smoothy.
+            });
+            $(window).scroll(function(){
+                $('.'+_el.h1).css({ 'text-indent' : document.body.scrollLeft/1.4 });
+                _page.scrollLeft = document.body.scrollLeft;
+            })
+        }
 
         
         //Binding Events
@@ -32,7 +39,7 @@
 
             // for a better antialiasing
             if(el.css('box-shadow')=='none') el.css({ 'box-shadow' : '0 0 1px transparent' });
-            el.parent().css({ '-webkit-perspective' : el.outerHeight()*20 });
+            el.parent().css({ '-webkit-perspective' : el.outerHeight()*20});
             el.parent().css({ '-o-perspective' : el.outerHeight()*20 });
             el.parent().css({ '-moz-perspective' : el.outerHeight()*20 });
             el.parent().css({ '-ms-perspective' : el.outerHeight()*20 });
@@ -56,13 +63,14 @@
                 trigger: el.attr('data-trigger')||'auto'
             }
 
-            if(el.hasClass('backface') && !el.hasClass('fragment')){
+            //.fragment hand over control to their parents
+            if(el.hasClass('fragment')){ return }
+            if(el.hasClass('backface')){
                 presentation.mode = 'backface';
                 el.data('presentation', presentation);
                 _p.backface(el);
             } else if(el.hasClass('extend')){
                 presentation.mode = 'extend';
-                presentation.dir = el.attr('data-dir')||'top';
                 el.data('presentation', presentation);
                 _p.extend(el);
             } else if(el.hasClass('shatter')){
@@ -116,12 +124,14 @@
                     }
                 }
 
-                if( interaction.orizorvert > 0 && $.browser.webkit){
+                //if( interaction.orizorvert > 0 && $.browser.webkit){
+                if( interaction.orizorvert > 0 && !$.browser.msie){
                     var anim = 'press' + interaction.ang + (interaction.orizorvert==1 ? 'Y':'X');
                     el
                         .removeClass(interaction.class)
                         .addClass(anim)
-                } else if( interaction.orizorvert==0 || !$.browser.webkit ){
+                //} else if( interaction.orizorvert==0 || !$.browser.webkit ){
+                } else if( interaction.orizorvert==0 || $.browser.msie ){
                     var anim = 'press';
                     el
                         .removeClass(interaction.class)
@@ -134,12 +144,12 @@
                 var a = el.data('interaction');
 
                 if( a.clicking==true ){
-                    if( a.orizorvert > 0 && $.browser.webkit){
+                    if( a.orizorvert > 0 && !$.browser.msie){
                         var anim = 'pressed' + a.ang + (a.orizorvert==1 ? 'Y':'X');
                         el
                             .removeClass(a.class)
                             .addClass(anim)
-                    }else if( a.orizorvert==0 || !$.browser.webkit){
+                    }else if( a.orizorvert==0 || $.browser.msie){
                         var anim = 'pressed';
                         el
                           .removeClass(a.class)
@@ -202,23 +212,36 @@
                 triggered: 'extended'
             }
             var presentation = $el.data('presentation');
-            var dir = presentation.dir;
+            //var dir = presentation.dir;//Find its direction right before it is used. Avoid variable context messed up in Shatter effect. #1/2
+            var dir;
+            if($el.hasClass('extendLeft')){
+                dir = 'left';
+            } else if($el.hasClass('extendRight')){
+                dir = 'right';
+            } else if($el.hasClass('extendTop')){
+                dir = 'top';
+            } else if($el.hasClass('extendBottom')){
+                dir = 'bottom';
+            } else {
+                return //issue: add a debugger here
+            }
+            var wr = $el.children('.extend-wrapper');
             var er = $el.find('.extender');
             var ee = $el.find('.extendee');
             var size;
-            if(dir === 'top' || dir=== 'bottom'){
-                size = ee.outerHeight();
-            } else if (dir === 'left'|| dir === 'right'){
+            if (dir === 'left'|| dir === 'right'){
                 size = ee.outerWidth();
             }
 
-
             $el.bind('extend._p', function(){
-                er.css( 'margin-' + dir , -size+'px' );//wtf???
+                if(dir === 'top' || dir=== 'bottom'){
+                    size = ee.outerHeight();
+                }
+                wr.css(dir , -size+'px' );//wtf???
                 presentation.stat = 'triggered';
                 $el.data('presentation', presentation);
             }).bind('extended._p', function(){
-                er.css( 'margin-' + dir, '0px' );
+                wr.css(dir, '0px' );
                 presentation.stat = 'initial';
                 $el.data('presentation', presentation);
             })
@@ -229,50 +252,86 @@
         },
         //Shattered Presentation Effect
         shatter: function($el){
-            var presentation = $el.data('presentation');
-            var fragments = $el.children('.backface');
-            var fragments_trigger = presentation.trigger === 'free'?'auto':'controlled';
+            //every .shatter has its own child effect
+            $el.each(function(){
+                var triggerName = {};
+                var presentation = $(this).data('presentation');
+                var fragments = $(this).children('.fragment');
+                var fragments_trigger = presentation.trigger === 'free'?'auto':'controlled';
+                var fragments_p = {
+                    mode: '',
+                    manual: false,
+                    stat: 'initial',
+                    trigger: fragments_trigger
+                }
 
-            fragments.data('presentation', {
-                mode: 'backface',
-                manual: false,
-                stat: 'initial',
-                trigger: fragments_trigger
-            });
-            //_p.backface(fragments);
-            fragments.each(function(){
-                _p.backface($(this));
-            })
-
-            if(presentation.trigger === 'hover'){
-                $el.bind('mouseover._p', function(){
-                    fragments.trigger('backface._p');
-                    presentation.stat = 'triggered';
-                    $el.data('presentation', presentation);
-                }).bind('mouseout._p', function(){
-                    fragments.trigger('backfaced._p');
-                    presentation.stat = 'initial';
-                    $el.data('presentation', presentation);
-                })
-            } else if( presentation.trigger === 'free'){
-                //nothing you can do here
-            } else if( presentation.trigger === 'auto'){
-                $.metro.automaton.serve($el);
-                $el.bind('dispatch._p', function(){
-                    var p = $(this).data('presentation');
-                    var stat = p.stat;
-                    if(p.manual === true){ return }
-                    if(stat === 'initial'){
-                        fragments.trigger('backface._p');
-                        p.stat = 'triggered';
-                        $el.data('presentation', p);
-                    } else if( stat === 'triggered' ){
-                        fragments.trigger('backfaced._p');
-                        p.stat = 'initial';
-                        $el.data('presentation', p);
+                //find out what kind of fragments it is, and binding them accordingly
+                if(fragments.hasClass('backface')){
+                    fragments_p.mode = 'backface';
+                    triggerName = {
+                        trigger: 'backface',
+                        triggered: 'backfaced'
                     }
-                })
-            }
+                    fragments.data('presentation', fragments_p);
+                    //_p.backface(fragments);
+                    fragments.each(function(){
+                        _p.backface($(this));
+                    })
+                } else if(fragments.hasClass('extend')){
+                    fragments_p.mode = 'extend';
+                    triggerName = {
+                        trigger: 'extend',
+                        triggered: 'extended'
+                    }
+                    fragments.each(function(){
+                        //fragments_p.dir = $(this).attr('data-dir')||'top';//"fragments_p.dir" turns out to be of the same value. Should find its direction right before it is used to avoid variable context messed upt. #2/2
+                        $(this).data('presentation', fragments_p);
+                        _p.extend($(this));
+                    })
+                } else if(fragments.hasClass('tag')){
+                    fragments_p.mode = 'tag';
+                    triggerName = {
+                        trigger: 'tag',
+                        triggered: 'tagged'
+                    }
+                    fragments.data('presentation', fragments_p);
+                    //_p.tag(fragments);
+                    fragments.each(function(){
+                        _p.tag($(this));
+                    })
+                }
+
+                //adding trigger to .shatter
+                if(presentation.trigger === 'hover'){
+                    $(this).bind('mouseover._p', function(){
+                        fragments.trigger(triggerName.trigger + '._p');
+                        presentation.stat = 'triggered';
+                        $(this).data('presentation', presentation);
+                    }).bind('mouseout._p', function(){
+                        fragments.trigger(triggerName.triggered + '._p');
+                        presentation.stat = 'initial';
+                        $(this).data('presentation', presentation);
+                    })
+                } else if( presentation.trigger === 'free'){
+                    //nothing you can do here
+                } else if( presentation.trigger === 'auto'){
+                    $.metro.automaton.serve($(this));
+                    $(this).bind('dispatch._p', function(){
+                        var p = $(this).data('presentation');
+                        var stat = p.stat;
+                        if(p.manual === true){ return }
+                        if(stat === 'initial'){
+                            fragments.trigger(triggerName.trigger+'._p');
+                            p.stat = 'triggered';
+                            $(this).data('presentation', p);
+                        } else if( stat === 'triggered' ){
+                            fragments.trigger(triggerName.triggered+'._p');
+                            p.stat = 'initial';
+                            $(this).data('presentation', p);
+                        }
+                    })
+                }
+            })
         },
         //Tag Presentation Effect
         tag: function($el){
@@ -337,7 +396,7 @@
                 els.push(el);
             },
             unserve: function(el){
-                //no effective way yet
+                //no effective way yet //filter way
             },
             dispatch: function(parallel){
                 var rand = Math.random();

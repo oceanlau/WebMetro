@@ -45,7 +45,7 @@ html{
 @-webkit-keyframes cursor2{
 	0% {
 		top: 25%;
-		right: -230px;
+		right: -170px;
 	}
 	50% {
 		top: 25%;
@@ -59,7 +59,7 @@ html{
 @-moz-keyframes cursor2{
 	0% {
 		top: 25%;
-		right: -230px;
+		right: -170px;
 	}
 	50% {
 		top: 25%;
@@ -99,8 +99,58 @@ html{
 	}
 }
 
+.metro, .metro-h1{
+	width: 5260px;
+	//overflow: hidden;
+}
 
-//It doesn't fit in Metro style. But it is required to make the text visible.
+.card{
+	color: #FFF;
+}
+
+//setting fragments width and height. Required for every Metro theme.
+.metro-tile{
+	.fragment{
+	    .square(50%);
+	}
+	&.metro-landscape{
+		.fragment{
+		    .size(100%, 50%);
+		}
+	}
+}
+//setting extend-wrappers' position. Required for every Metro theme.
+.extendTop, .extendBottom{
+	.extend-wrapper{
+		height: 200%;
+		.extender, .extendee{
+			height: 50%;
+		}
+	}
+}
+.extendLeft, .extendRight{
+	.extend-wrapper{
+		width: 200%;
+		.extender, .extendee{
+			width: 50%;
+		}
+	}
+}
+
+
+.find{
+	.extendee{
+		color: #FFF;
+		background: #D44A26;
+		-webkit-transition: background 0.6s;
+		-moz-transition: background 0.6s;
+		&:hover{
+			background: lighten(#D44A26, 6%);
+		}
+	}
+}
+
+//It doesn't fit in Metro style. But it is required to make the text clearly visible.
 .title{
 	text-shadow: 2px 2px 3px #000;
 }
@@ -111,8 +161,8 @@ html{
     bottom: -36px;
     width: 100%;
     height: 36px;
-    font: @font-normaltext;
-    background: orange;
+    background: #BC1C48;
+    color: #FFF;
     .price{
     	display: block;
     	position: absolute;
@@ -135,17 +185,18 @@ html{
 	background: green !important;
 }
 .webend2{
-	background: blue !important;
+	//background: pink !important;
 }
 .webend3{
-	background: brown !important;
+	//background: yellow !important;
 }
 
 .cursor1{
 	position: absolute;
 	top: 0;
 	right: 30px;
-	-webkit-animation: cursor1 8s infinite alternate;
+	-webkit-animation: cursor1 8s infinite alternate ease-in-out;
+	-moz-animation: cursor1 8s infinite alternate ease-in-out;
 	.size(40px, 35px);
 	background: url(../../Images/Sample/cursor.png) -35px 0px no-repeat;
 }
@@ -153,7 +204,8 @@ html{
 	position: absolute;
 	top: 25%;
 	right: -170px;
-	-webkit-animation: cursor2 8s infinite alternate;
+	-webkit-animation: cursor2 8s infinite alternate ease-in-out;
+	-moz-animation: cursor2 8s infinite alternate ease-in-out;
 	.size(40px, 35px);
 	background: url(../../Images/Sample/cursor.png) 0px 0px no-repeat;
 }
@@ -161,7 +213,8 @@ html{
 	position: absolute;
 	top: -200%;
 	right: 30px;
-	-webkit-animation: cursor3 8s infinite alternate;
+	-webkit-animation: cursor3 8s infinite alternate ease-in-out;
+	-moz-animation: cursor3 8s infinite alternate ease-in-out;
 	.size(40px, 35px);
 	background: url(../../Images/Sample/cursor.png) 0px 0px no-repeat;
 }

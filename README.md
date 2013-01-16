@@ -39,21 +39,15 @@ Now every tile could only have one and one only Presentation effect trigger. It'
 **Setting Attr:**
 
 - `data-trigger`: "auto", "hover"
-- `data-dir`
+- `div.metro-content.extend.`: `extendTop`, `extendRight`, `extendBottom`, `extendLeft`
 
 **Struct:**
 
-if `data-dir` === "top" || `data-dir` === "bottom"
-
-`div.metro-content.extend > div.extender + div.extendee`
-
-else if `data-dir` === "left" || `data-dir` === "right"
-
-`div.metro-content.extend > div > div.extender+ div.extendee`
+`div.metro-content.extend > div.extend-wrapper > div.extender+ div.extendee`
 
 **Note:**
 
-- `div.extender` should always be height:100%; to the `div.metro-content`
+- When using `div.metro-content.extend.extendBottom`, `div.extendee` should appear before `div.extender` in the HTML document.
 
 ###Effect: Shatter###
 
@@ -89,6 +83,9 @@ else if `data-dir` === "left" || `data-dir` === "right"
 Planned
 -------
 
+- Shatter add Tag support.
+- Add debugger.
 - Multiple trigger for one tile.
 - Enhanced Shatter effect. Fragments dispatched at a different delay.
 - Pivot(big).
+- Think of a way to make all tiles in a container to share one background. Now it is impossible to because of the margin and height:100%;.

@@ -1,5 +1,10 @@
+/*
+ *  oceanlau @bingyan.net
+ *  https://github.com/oceanlau/WebMetro
+ */
 // metro-wp.less
 // Windows Phone Style Metro
+
 
 @import "metro-reset.less";
 @import "metro-variables.less";
@@ -10,11 +15,13 @@
 
 
 .metro{
-    width: 600%;//wide enough
+    //width: 600%;//wide enough
     height: 100%;
+    overflow-y: hidden;
     background: @bg;
     .background-size(cover);
     color: @color;
+    font: @font-normaltext;
     .metro-wrapper{
         .square(100%);
         .metro-header{
@@ -28,6 +35,7 @@
             }
         }
         .metro-body{
+            .user-select(none);
             height: @size-body-h;
             overflow: hidden;
             .metro-section{
@@ -41,7 +49,7 @@
                     font: @font-subheader;
                 }
                 .metro-container{
-                    .size(@size-container-h, @size-tile-w*5);
+                    .size(@size-container-h, @size-tile-w*5);//default width
 
                     .container(@n){
                         .size(@size-container-h, @size-tile-w*@n);
@@ -50,7 +58,7 @@
                     &.metro-container-1{ .container(1); }
                     &.metro-container-2{ .container(2); }
                     &.metro-container-3{ .container(3); }
-                    &.metro-contaienr-4{ .container(4); }
+                    &.metro-container-4{ .container(4); }
                     &.metro-container-5{ .container(5); }
                     &.metro-container-6{ .container(6); }
                     //...

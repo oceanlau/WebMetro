@@ -1,0 +1,220 @@
+// layout.less
+// 华中大二手市场|逛
+
+@import "../metro-wp/metro-wp.less";
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+}
+
+html{
+    height: 100%;
+}
+
+
+@-webkit-keyframes cursor1{
+	0% {
+		top: 0;
+		right: 30px;
+	}
+	50% {
+		top: 112.5%;
+		right: 30px;
+	}
+	100% {
+		top: 250%;
+		right: 30px;
+	}
+}
+@-moz-keyframes cursor1{
+	0% {
+		top: 0;
+		right: 30px;
+	}
+	50% {
+		top: 112.5%;
+		right: 30px;
+	}
+	100% {
+		top: 250%;
+		right: 30px;
+	}
+}
+@-webkit-keyframes cursor2{
+	0% {
+		top: 25%;
+		right: -170px;
+	}
+	50% {
+		top: 25%;
+		right: -170px;
+	}
+	100% {
+		top: 25%;
+		right: 200px;
+	}
+}
+@-moz-keyframes cursor2{
+	0% {
+		top: 25%;
+		right: -170px;
+	}
+	50% {
+		top: 25%;
+		right: -170px;
+	}
+	100% {
+		top: 25%;
+		right: 200px;
+	}
+}
+@-webkit-keyframes cursor3{
+	0% {
+		top: -200%;
+		right: 30px;
+	}
+	50% {
+		top: 25%;
+		right: 30px;
+	}
+	100% {
+		top: 25%;
+		right: 400px;
+	}
+}
+@-moz-keyframes cursor3{
+	0% {
+		top: -200%;
+		right: 30px;
+	}
+	50% {
+		top: 25%;
+		right: 30px;
+	}
+	100% {
+		top: 25%;
+		right: 400px;
+	}
+}
+
+.metro, .metro-h1{
+	width: 5260px;
+	//overflow: hidden;
+}
+
+.card{
+	color: #FFF;
+}
+
+//setting fragments width and height. Required for every Metro theme.
+.metro-tile{
+	.fragment{
+	    .square(50%);
+	}
+	&.metro-landscape{
+		.fragment{
+		    .size(100%, 50%);
+		}
+	}
+}
+//setting extend-wrappers' position. Required for every Metro theme.
+.extendTop, .extendBottom{
+	.extend-wrapper{
+		height: 200%;
+		.extender, .extendee{
+			height: 50%;
+		}
+	}
+}
+.extendLeft, .extendRight{
+	.extend-wrapper{
+		width: 200%;
+		.extender, .extendee{
+			width: 50%;
+		}
+	}
+}
+
+
+.find{
+	.extendee{
+		color: #FFF;
+		background: #D44A26;
+		-webkit-transition: background 0.6s;
+		-moz-transition: background 0.6s;
+		&:hover{
+			background: lighten(#D44A26, 6%);
+		}
+	}
+}
+
+//It doesn't fit in Metro style. But it is required to make the text clearly visible.
+.title{
+	text-shadow: 2px 2px 3px #000;
+}
+
+//It is actually a bad practice to bind css code to js implementation class
+.sign{
+    position: absolute;
+    bottom: -36px;
+    width: 100%;
+    height: 36px;
+    background: #BC1C48;
+    color: #FFF;
+    .price{
+    	display: block;
+    	position: absolute;
+    	top: 0px;
+    	left: 8px;
+    	height: 28px;
+    	line-height: 28px;
+    }
+    .addr{
+    	display: block;
+    	position: absolute;
+    	top: 0px;
+    	right: 16px;
+    	height: 28px;
+    	line-height: 28px;
+    }
+}
+
+.webend1{
+	background: green !important;
+}
+.webend2{
+	//background: pink !important;
+}
+.webend3{
+	//background: yellow !important;
+}
+
+.cursor1{
+	position: absolute;
+	top: 0;
+	right: 30px;
+	-webkit-animation: cursor1 8s infinite alternate ease-in-out;
+	-moz-animation: cursor1 8s infinite alternate ease-in-out;
+	.size(40px, 35px);
+	background: url(../../Images/Sample/cursor.png) -35px 0px no-repeat;
+}
+.cursor2{
+	position: absolute;
+	top: 25%;
+	right: -170px;
+	-webkit-animation: cursor2 8s infinite alternate ease-in-out;
+	-moz-animation: cursor2 8s infinite alternate ease-in-out;
+	.size(40px, 35px);
+	background: url(../../Images/Sample/cursor.png) 0px 0px no-repeat;
+}
+.cursor3{
+	position: absolute;
+	top: -200%;
+	right: 30px;
+	-webkit-animation: cursor3 8s infinite alternate ease-in-out;
+	-moz-animation: cursor3 8s infinite alternate ease-in-out;
+	.size(40px, 35px);
+	background: url(../../Images/Sample/cursor.png) 0px 0px no-repeat;
+}

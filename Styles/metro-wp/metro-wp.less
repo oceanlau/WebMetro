@@ -1,0 +1,114 @@
+/*
+ *  oceanlau @bingyan.net
+ *  https://github.com/oceanlau/WebMetro
+ */
+// metro-wp.less
+// Windows Phone Style Metro
+
+
+@import "metro-reset.less";
+@import "metro-variables.less";
+@import "custom-variables.less";
+@import "mixins.less";
+@import "metro-wp-css3.less";
+
+
+
+.metro{
+    //width: 600%;//wide enough
+    height: 100%;
+    overflow-y: hidden;
+    background: @bg;
+    .background-size(cover);
+    color: @color;
+    font: @font-normaltext;
+    .metro-wrapper{
+        .square(100%);
+        .metro-header{
+            position: relative;
+            height: @size-header-h;
+            .metro-h1{
+                //width: 300%;//wide enough
+                position: absolute;
+                bottom: 0;
+                font: @font-header;
+            }
+        }
+        .metro-body{
+            .user-select(none);
+            height: @size-body-h;
+            overflow: hidden;
+            .metro-section{
+                float: left;
+                height: 100%;
+                padding-right: 80px;
+
+                .metro-h2{
+                    height: @size-h2-h;
+                    padding-left: 10px;//minor adjustment
+                    font: @font-subheader;
+                }
+                .metro-container{
+                    .size(@size-container-h, @size-tile-w*5);//default width
+
+                    .container(@n){
+                        .size(@size-container-h, @size-tile-w*@n);
+                    }
+
+                    &.metro-container-1{ .container(1); }
+                    &.metro-container-2{ .container(2); }
+                    &.metro-container-3{ .container(3); }
+                    &.metro-container-4{ .container(4); }
+                    &.metro-container-5{ .container(5); }
+                    &.metro-container-6{ .container(6); }
+                    //...
+
+                    .metro-tile{
+                        float: left;
+                        .size(@size-tile-h, @size-tile-w);
+                        overflow: hidden;
+
+                        &.metro-portrait{
+                            height: @size-tile-h*2;
+                        }
+                        &.metro-landscape{
+                            width: @size-tile-w*2;
+                        }
+                        &.metro-cube{
+                            .size(@size-tile-h*2, @size-tile-w*2);
+                        }
+                        &.clearleftfix{
+                          clear: left;
+                        }//fix certain float bug
+
+                        .metro-content{
+                            position: relative;
+                            .square(100%);
+                            margin: @size-tile-gap 0 0 @size-tile-gap;
+                            background: @tilebg;
+                            .background-size(cover);
+                            background-position: center;
+                            cursor: pointer;
+                            overflow: hidden;
+                            //.transition(0.2s linear);
+                        }
+                    }
+                }
+            }
+        }
+   }
+}
+
+.metro-content{
+    .title{
+        position: absolute;
+        bottom: @size-tile-gap;
+        left: 0;
+        .size(28px, 100%);
+        background: @titlebg;
+        font: @font-normaltext;
+        line-height: 28px;
+        text-indent: 0.4em;
+        color: @color-title;
+    }
+}
